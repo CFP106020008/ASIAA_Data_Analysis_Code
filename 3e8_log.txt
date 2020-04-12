@@ -1,0 +1,23 @@
+24/03/2020 14:39:10.584   SKIRT v9.0 (git 63a5263-dirty built on 02/07/2019 at 17:44:39)
+24/03/2020 14:39:10.584   Running on julius52700-Aspire-A515-51G for julius52700
+24/03/2020 14:39:10.584   Starting simulation 3e8 using 4 threads and a single process...
+24/03/2020 14:39:10.584   Starting setup...
+24/03/2020 14:39:10.584     Panchromatic wavelength regime
+24/03/2020 14:39:10.584     No transfer medium
+24/03/2020 14:39:10.584     Model symmetry: 1D
+24/03/2020 14:39:10.584   BruzualCharlotSEDFamily opened stored table /home/julius52700/SKIRT/resources/SKIRT9_Resources_Core/SED/BruzualCharlotSEDFamily_Chabrier_hr.stab
+24/03/2020 14:39:10.846   SEDInstrument sed allocated 0.781 KB of memory
+24/03/2020 14:39:10.846 - Finished setup in 0.3 s.
+24/03/2020 14:39:10.846   Starting setup output...
+24/03/2020 14:39:10.852   LuminosityProbe lum wrote primary source luminosities to /home/julius52700/Desktop/TwoSphere/3e8_lum_luminosities.dat
+24/03/2020 14:39:10.852 - Finished setup output in 0.0 s.
+24/03/2020 14:39:10.852   Starting the run...
+24/03/2020 14:39:10.852   Starting primary emission...
+24/03/2020 14:39:10.852   Launching 1e6 primary emission photon packets
+24/03/2020 14:39:11.624 - Finished primary emission in 0.8 s.
+24/03/2020 14:39:11.624 - Finished the run in 0.8 s.
+24/03/2020 14:39:11.624   Starting final output...
+24/03/2020 14:39:11.626   SEDInstrument sed wrote SED to /home/julius52700/Desktop/TwoSphere/3e8_sed_sed.dat
+24/03/2020 14:39:11.626 - Finished final output in 0.0 s.
+24/03/2020 14:39:11.626 - Finished simulation 3e8 using 4 threads and a single process in 1.0 s.
+24/03/2020 14:39:11.626   Available memory: 11.6 GB -- Peak memory usage: 8.14 MB (0.1%)

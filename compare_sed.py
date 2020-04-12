@@ -18,6 +18,6 @@ plt.legend()
 plt.xlabel("Wavelength (micrometer)")
 plt.ylabel("Flux*frequency (Jy*Hz)")
 plt.xlim([10**-1,10**3])
-plt.ylim([10**5,10**12])
+#plt.ylim([10**5,10**12])
 
 plt.show()
