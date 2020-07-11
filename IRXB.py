@@ -82,8 +82,8 @@ IRX_LL = Obs.loc[:,'IRX_lowlim'].to_numpy().transpose()
 IRX_UL = Obs.loc[:,'IRX_uplim'].to_numpy().transpose()
 plt.errorbar(   x = Betas,
                 y = IRXs,
-                xerr=Beta_err,
-                yerr=IRX_err,
+                xerr = Beta_err,
+                yerr = IRX_err,
                 xlolims = Beta_LL,
                 xuplims = Beta_UL,
                 lolims = IRX_LL,
@@ -91,8 +91,8 @@ plt.errorbar(   x = Betas,
                 fmt='+',
                 ecolor='gray',
                 mfc='gray',
-                mec='gray',
-                zorder=5) 
+                mec='gray',)
+                #zorder=5.) 
 
 #Set colorbar style
 CBMax = 5
