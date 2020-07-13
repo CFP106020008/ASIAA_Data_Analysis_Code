@@ -88,15 +88,15 @@ plt.errorbar(   x = Betas,
                 xuplims = Beta_UL,
                 lolims = IRX_LL,
                 uplims = IRX_UL,
-                fmt='+',
+                fmt='s',
                 ecolor='gray',
                 mfc='gray',
                 mec='gray',)
                 #zorder=5.) 
 
 #Set colorbar style
-CBMax = 5
-CBMin = 1
+CBMax = 0.9
+CBMin = 0.5
 color = np.linspace(CBMin,CBMax,int(len(files)/2))
 
 #IRXB Curve

@@ -6,7 +6,8 @@ from os.path import join
 c=299792458
 path = input() 
 files = listdir(path) 
-files_abs = files 
+files_abs = files
+files_abs.sort() 
 for i in range(len(files)):
     files_abs[i] = join(path,files[i])
 
