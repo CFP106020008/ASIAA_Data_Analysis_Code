@@ -31,14 +31,13 @@ for i in range(0,len(files_abs)):
         if Datas[rows,0]>0.3:
             ROW = rows
             break
-    tau = (np.log(Datas[:,2]/Datas[:,1]))/(np.log(Datas[ROW,2]/Datas[ROW,1]))
+    #tau = (np.log(Datas[:,2]/Datas[:,1]))/(np.log(Datas[ROW,2]/Datas[ROW,1]))
     #print(tau[1])
     LABEL = files[i].split('/')[-1]
-    
     if i<0.5*len(files_abs):
-        ax.plot(1/Datas[:,0],tau,color=color[i],linestyle='dashed')#,label=LABEL)
+        ax.loglog(Datas[:,0],Datas[:,2],color=color[i],linestyle='dashed')#,label=LABEL)
     else:
-        ax.plot(1/Datas[:,0],tau,color=color[int(i-0.5*len(files_abs))],linestyle='solid')#,label=LABEL)
+        ax.loglog(Datas[:,0],Datas[:,2],color=color[int(i-0.5*len(files_abs))],linestyle='solid')#,label=LABEL)
 
 #Show SMC and Calzetti curves
 SMC = np.loadtxt('./Observation_Datas/pei_smc.dat')
@@ -56,8 +55,8 @@ plt.legend(loc=2)
 #plt.title("Attenuation Curve \n (Normalized at {:4f} $\mu m$)".format(Datas[ROW,0]))
 plt.xlabel(r'$1/\lambda$ $(\mu m^{-1})$')
 plt.ylabel(r'$A/A_{3000 \AA}$')
-plt.xlim([0.3,10])
-plt.ylim([0,10])
+plt.xlim([0.09,100])
+plt.ylim([1e-5,1e1])
 plt.tight_layout()
-plt.savefig(str(path+"_Attcur.png"),dpi=300)
+plt.savefig(str(path+"_intrinsic.png"),dpi=300)
 #plt.show()
