@@ -40,18 +40,18 @@ for i in range(0,len(files_abs)):
         ax.loglog(Datas[:,0],Datas[:,2],color=color[int(i-0.5*len(files_abs))],linestyle='solid')#,label=LABEL)
 
 #Show SMC and Calzetti curves
-SMC = np.loadtxt('./Observation_Datas/pei_smc.dat')
-Calzetti = np.loadtxt('./Observation_Datas/calzetti.dat')
-Line_SMC = ax.plot(SMC[:,0], SMC[:,2]/1.9, color = (0.5,0.5,0.5), linestyle=':', label='SMC', linewidth=3)
-Line_Cal = ax.plot(1/Calzetti[:,0], Calzetti[:,1], color = (0.3,0.3,0.3), linestyle=':', label='Calzetti', linewidth=3)
+#SMC = np.loadtxt('./Observation_Datas/pei_smc.dat')
+#Calzetti = np.loadtxt('./Observation_Datas/calzetti.dat')
+#Line_SMC = ax.plot(SMC[:,0], SMC[:,2]/1.9, color = (0.5,0.5,0.5), linestyle=':', label='SMC', linewidth=3)
+#Line_Cal = ax.plot(1/Calzetti[:,0], Calzetti[:,1], color = (0.3,0.3,0.3), linestyle=':', label='Calzetti', linewidth=3)
 
 #Show the beta wavelengths
-B_short = ax.vlines(x=1/0.16, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
-B_long = ax.vlines(x=1/0.25, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
+B_short = ax.vlines(x=0.16, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
+B_long = ax.vlines(x=0.25, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
 
 
 #Set plot style
-plt.legend(loc=2)
+#plt.legend(loc=2)
 #plt.title("Attenuation Curve \n (Normalized at {:4f} $\mu m$)".format(Datas[ROW,0]))
 plt.xlabel(r'$1/\lambda$ $(\mu m^{-1})$')
 plt.ylabel(r'$A/A_{3000 \AA}$')
