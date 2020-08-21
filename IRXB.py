@@ -26,10 +26,7 @@ for i in range(len(files)):
 #create a matrix to store beta and irx
 Data = np.zeros((len(files),2))
 
-for i in range(0,len(files_abs)):
-    Datas = np.loadtxt(files_abs[i])
-    
-    #LIR Part
+def Cal_IRX(Datas):
     nu = c/(Datas[:,0]*10**-6)
     TotalFlux = Datas[:,1]
     nu3 = c/(3*10**-6)
@@ -53,8 +50,10 @@ for i in range(0,len(files_abs)):
              break
     UV = TotalFlux[Row1600]*nu[Row1600]
     IRX = LIR/UV
+    return IRX
 
-    #Beta Part
+def Cal_Beta(Datas):
+    TotalFlux = Datas[:,1]
     for rows in range(0,np.shape(Datas)[0]):
         if Datas[rows,0]>0.16:
              Row1600A = rows
@@ -66,8 +65,18 @@ for i in range(0,len(files_abs)):
              break
 
     Beta = np.log10(TotalFlux[Row1600A]/TotalFlux[Row2500A])/np.log10(1600/2500)-2
-    LABEL = files[i].split('/')[-1]
+    return Beta
 
+#Main code
+for i in range(0,len(files_abs)):
+    Datas = np.loadtxt(files_abs[i])
+    
+    #Calculate IRX and Beta
+    IRX = Cal_IRX(Datas)
+    Beta = Cal_Beta(Datas)
+
+    #Plot data points
+    LABEL = files[i].split('/')[-1]
     Data[i,:] = np.array([Beta,np.log10(IRX)])
 
 #Observation Datas
