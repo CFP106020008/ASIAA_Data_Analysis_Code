@@ -36,28 +36,16 @@ for i in range(0,len(files_abs)):
     LABEL = files[i].split('/')[-1]
     
     if i<0.5*len(files_abs):
-        ax.plot(1/Datas[:,0],tau,color=color[i],linestyle='dashed')#,label=LABEL)
+        ax.scatter(i*1000,tau[1],color=color[i],linestyle='dashed')#,label=LABEL)
     else:
-        ax.plot(1/Datas[:,0],tau,color=color[int(i-0.5*len(files_abs))],linestyle='solid')#,label=LABEL)
-
-#Show SMC and Calzetti curves
-SMC = np.loadtxt('./Observation_Datas/pei_smc.dat')
-Calzetti = np.loadtxt('./Observation_Datas/calzetti.dat')
-Line_SMC = ax.plot(SMC[:,0], SMC[:,2]/1.9, color = (0.5,0.5,0.5), linestyle=':', label='SMC', linewidth=3)
-Line_Cal = ax.plot(1/Calzetti[:,0], Calzetti[:,1], color = (0.3,0.3,0.3), linestyle=':', label='Calzetti', linewidth=3)
-
-#Show the beta wavelengths
-B_short = ax.vlines(x=1/0.15, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
-B_long = ax.vlines(x=1/0.2, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
-
+        ax.plot(int(i-0.5*len(files_abs))*1000,tau[1],color=color[int(i-0.5*len(files_abs))],linestyle='solid')#,label=LABEL)
 
 #Set plot style
 plt.legend(loc=2)
 #plt.title("Attenuation Curve \n (Normalized at {:4f} $\mu m$)".format(Datas[ROW,0]))
-plt.xlabel(r'$1/\lambda$ $(\mu m^{-1})$')
-plt.ylabel(r'$A/A_{3000 \AA}$')
-plt.xlim([0.3,10])
-plt.ylim([0,10])
+plt.xlabel(r'R')
+plt.ylabel(r'slope')
+#plt.xlim([0.3,10])
+#plt.ylim([0,10])
 plt.tight_layout()
-plt.savefig(str(path+"_Attcur.png"),dpi=300)
-#plt.show()
+plt.savefig(str(path+"_slope.png"),dpi=300)

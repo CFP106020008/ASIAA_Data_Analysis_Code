@@ -11,8 +11,9 @@ fig, ax = plt.subplots(figsize=(8,6))
 color = ['r',(0.8,0.52,0),(0.8,0.8,0),(0,0.8,0),'b']#,(111/255,0,255/255),(238/255,130/255,238/255)]
 cMap = ListedColormap(color)
 
-#Light Speed
+#Parameters
 c = 299792458
+Beta_range = [0.15,0.20]
 
 #Load SEDs
 print("Please input the desired directory:")
@@ -52,15 +53,15 @@ def Cal_IRX(Datas):
     IRX = LIR/UV
     return IRX
 
-def Cal_Beta(Datas):
+def Cal_Beta(Datas, Range):
     TotalFlux = Datas[:,1]
     for rows in range(0,np.shape(Datas)[0]):
-        if Datas[rows,0]>0.16:
+        if Datas[rows,0] > Range[0]:
              Row1600A = rows
              break
 
     for rows in range(0,np.shape(Datas)[0]):
-        if Datas[rows,0]>0.25:
+        if Datas[rows,0] > Range[1]:
              Row2500A = rows
              break
 
@@ -73,7 +74,7 @@ for i in range(0,len(files_abs)):
     
     #Calculate IRX and Beta
     IRX = Cal_IRX(Datas)
-    Beta = Cal_Beta(Datas)
+    Beta = Cal_Beta(Datas, Beta_range)
 
     #Plot data points
     LABEL = files[i].split('/')[-1]
