@@ -40,6 +40,10 @@ for i in range(0,len(files_abs)):
     else:
         ax.plot(1/Datas[:,0],tau,color=color[int(i-0.5*len(files_abs))],linestyle='solid')#,label=LABEL)
 
+#Plot for legends
+StarDust = ax.plot(np.linspace(0,10,10), np.ones(10)*-1, color = (0.1,0.1,0.1), linestyle='solid', label='Star dust scenario', linewidth=3)
+DustGrowth = ax.plot(np.linspace(0,10,10), np.ones(10)*-1, color = (0.1,0.1,0.1), linestyle='dashed', label='Dust growth scenario', linewidth=3)
+
 #Show SMC and Calzetti curves
 SMC = np.loadtxt('./Observation_Datas/pei_smc.dat')
 Calzetti = np.loadtxt('./Observation_Datas/calzetti.dat')
@@ -47,12 +51,11 @@ Line_SMC = ax.plot(SMC[:,0], SMC[:,2]/1.9, color = (0.5,0.5,0.5), linestyle=':',
 Line_Cal = ax.plot(1/Calzetti[:,0], Calzetti[:,1], color = (0.3,0.3,0.3), linestyle=':', label='Calzetti', linewidth=3)
 
 #Show the beta wavelengths
-B_short = ax.vlines(x=1/0.15, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
-B_long = ax.vlines(x=1/0.2, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
-
+B_short = ax.vlines(x=1/0.16, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
+B_long = ax.vlines(x=1/0.25, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='solid')
 
 #Set plot style
-plt.legend(loc=2)
+plt.legend(loc=2,prop={'size': 15})
 #plt.title("Attenuation Curve \n (Normalized at {:4f} $\mu m$)".format(Datas[ROW,0]))
 plt.xlabel(r'$1/\lambda$ $(\mu m^{-1})$')
 plt.ylabel(r'$A/A_{3000 \AA}$')

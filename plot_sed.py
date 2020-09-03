@@ -49,7 +49,6 @@ for i in range(0,len(files_abs)):
 B_short = ax.vlines(x=0.16, ymin=0, ymax=1e20, colors=(0.8,0.8,0.8), linestyle='solid')
 B_long = ax.vlines(x=0.25, ymin=0, ymax=1e20, colors=(0.8,0.8,0.8), linestyle='solid')
 
-
 #Set plot style
 #plt.legend(loc=2)
 plt.xlabel("Wavelength (micrometer)")

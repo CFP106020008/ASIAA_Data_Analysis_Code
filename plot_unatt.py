@@ -58,7 +58,7 @@ B_long = ax.vlines(x=1/0.25, ymin=0, ymax=10, colors=(0.8,0.8,0.8), linestyle='s
 plt.xlabel(r'$1/\lambda$ $(\mu m^{-1})$')
 plt.ylabel(r'$A_{\lambda}$')
 plt.xlim([0.3,10])
-plt.ylim([0,10])
+plt.ylim([0,2])
 plt.tight_layout()
 plt.savefig(str(path+"_unAttcur.png"),dpi=300)
 #plt.show()

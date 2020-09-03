@@ -13,7 +13,7 @@ cMap = ListedColormap(color)
 
 #Parameters
 c = 299792458
-Beta_range = [0.15,0.20]
+Beta_range = [0.16,0.25]
 
 #Load SEDs
 print("Please input the desired directory:")
@@ -125,11 +125,16 @@ CBar = plt.colorbar(ticks = np.linspace(CBMin,CBMax,int(len(files)/2)))
 CBar.ax.set_title('kpc')
 plt.clim(CBMin-(CBMax-CBMin)/int(len(files)/2-1)/2,CBMax+(CBMax-CBMin)/int(len(files)/2-1)/2)
 
-plt.legend(loc=4)
+#Legend
+plt.scatter(-10,-10, color='k', marker='^',label='Star dust scenario')
+plt.scatter(-10,-10, color='k', marker='o',label='Dust growth scenario')
+
+#Plot setting
+plt.legend(loc=4,prop={'size': 15})
 plt.xlim([-3,1])
 plt.ylim([-2,3])
-plt.xlabel(r'$\beta$')
-plt.ylabel(r'$IRX$')
+plt.xlabel(r'$\beta$ (UV slope)')
+plt.ylabel(r'$IRX=log(L_{IR}/L_{UV})$')
 plt.tight_layout()
 plt.savefig('{}_IRXB'.format(path),dpi=300)
 plt.show()
