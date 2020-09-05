@@ -121,9 +121,9 @@ plt.scatter(x = Data[:int(len(files)/2),0], y = Data[:int(len(files)/2),1], s = 
 plt.scatter(x = Data[int(len(files)/2):,0], y = Data[int(len(files)/2):,1], cmap = cMap, s = 100, c = color, marker = '^',zorder=10)
 
 #Draw colorbar
-CBar = plt.colorbar(ticks = np.linspace(CBMin,CBMax,int(len(files)/2)))
-CBar.ax.set_title('kpc')
-plt.clim(CBMin-(CBMax-CBMin)/int(len(files)/2-1)/2,CBMax+(CBMax-CBMin)/int(len(files)/2-1)/2)
+#CBar = plt.colorbar(ticks = np.linspace(CBMin,CBMax,int(len(files)/2)))
+#CBar.ax.set_title('kpc')
+#plt.clim(CBMin-(CBMax-CBMin)/int(len(files)/2-1)/2,CBMax+(CBMax-CBMin)/int(len(files)/2-1)/2)
 
 #Legend
 plt.scatter(-10,-10, color='k', marker='^',label='Star dust scenario')
