@@ -8,8 +8,6 @@ import pandas as pd
 #Set plotting style
 plt.rcParams.update({'font.size': 20})
 fig, ax = plt.subplots(figsize=(8,6))
-color = ['r',(0.8,0.52,0),(0.8,0.8,0),(0,0.8,0),'b']#,(111/255,0,255/255),(238/255,130/255,238/255)]
-cMap = ListedColormap(color)
 
 #Parameters
 c = 299792458
@@ -20,9 +18,13 @@ print("Please input the desired directory:")
 path = input()
 files = listdir(path)
 files_abs = files
-files_abs.sort()
+files_abs.sort() #Sort the files to order them by radius
+R = [] #Record the radius of each simulation
 for i in range(len(files)):
     files_abs[i] = join(path,files[i])
+    R.append(files_abs[i].split('/')[-1].split('.')[-2].split('=')[-1])
+R = np.asarray(list(map(int, R)))/1000
+print(R)
 
 #create a matrix to store beta and irx
 Data = np.zeros((len(files),2))
@@ -105,9 +107,9 @@ plt.errorbar(   x = Betas,
                 #zorder=5.) 
 
 #Set colorbar style
-CBMax = 5
-CBMin = 1
-color = np.linspace(CBMin,CBMax,int(len(files)/2))
+#CBMax = 5
+#CBMin = 1
+#color = np.linspace(CBMin,CBMax,int(len(files)/2))
 
 #IRXB Curve
 x = np.linspace(-5,1,100)
@@ -117,13 +119,14 @@ ax.plot(x,Calzetti,'k-',label='Calzetti')
 ax.plot(SMC[:,0],np.log10(SMC[:,1]),'k--',label='SMC')
 
 #Plot simulation data points
-plt.scatter(x = Data[:int(len(files)/2),0], y = Data[:int(len(files)/2),1], s = 100, cmap = cMap, c = color, marker = 'o', zorder=10)
-plt.scatter(x = Data[int(len(files)/2):,0], y = Data[int(len(files)/2):,1], cmap = cMap, s = 100, c = color, marker = '^',zorder=10)
+DG = plt.scatter(x = Data[:int(len(files)/2),0], y = Data[:int(len(files)/2),1], s = 100, c = R[:int(len(files)/2)], marker = 'o', zorder = 10, cmap = 'gist_rainbow')
+SD = plt.scatter(x = Data[int(len(files)/2):,0], y = Data[int(len(files)/2):,1], s = 100, c = R[int(len(files)/2):], marker = '^', zorder = 10, cmap = 'gist_rainbow')
 
 #Draw colorbar
-#CBar = plt.colorbar(ticks = np.linspace(CBMin,CBMax,int(len(files)/2)))
-#CBar.ax.set_title('kpc')
-#plt.clim(CBMin-(CBMax-CBMin)/int(len(files)/2-1)/2,CBMax+(CBMax-CBMin)/int(len(files)/2-1)/2)
+CBar = plt.colorbar()
+CBar.ax.set_title('kpc')
+#plt.clim(R[0] - (R[0] + R[-1])/10, R[-1] + (R[0] + R[-1])/10)
+plt.clim(0.5,5.5)
 
 #Legend
 plt.scatter(-10,-10, color='k', marker='^',label='Star dust scenario')

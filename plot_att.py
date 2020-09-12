@@ -8,9 +8,7 @@ plt.rcParams.update({'font.size': 20})
 fig, ax = plt.subplots(figsize=(8,6))
 dash = '--'
 line = '-'
-#color = np.linspace(1000,5000,int(len(files)/2))
 color = ['r',(0.8,0.52,0),(0.8,0.8,0),(0,0.8,0),'b',(111/255, 0, 255/255),(238/255,130/255,238/255),'k']
-#color = [(0.5,0.5,0.5),(0.6,0.5,0.5),(0.7,0.5,0.5),(0.8,0.5,0.5),(0.9,0.5,0.5),(1,0.5,0.5)]
 
 #Load Datas
 print("Please input the desired directory:")
@@ -47,7 +45,7 @@ def Plot_AttCur_Fill(Datas,COLOR,LINE,LABEL):
             break
     for D in Datas:
         tau.append((np.log(D[:,2]/D[:,1]))/(np.log(D[ROW,2]/D[ROW,1])))
-    plt.fill_between(1/Wavelength,tau[0],tau[-1],alpha=0.2,color=COLOR,linestyle=LINE,label=LABEL)
+    plt.fill_between(1/Wavelength,tau[0],tau[-1],alpha=0.3,color=COLOR,linestyle=LINE,label=LABEL)
 
 #Main code to plot
 #for i in range(0,len(files_abs)):
@@ -61,8 +59,8 @@ Plot_AttCur_Fill(Datas[int(len(Datas)/2):],'r','solid' ,LABEL="Star dust scenari
 #DustGrowth = ax.plot(np.linspace(0,10,10), np.ones(10)*-1, color = (0.1,0.1,0.1), linestyle='dashed', label='Dust growth scenario', linewidth=3)
 
 #Show extinction curves of the two scenarios
-Ext_DG = np.loadtxt('./Observation_Datas/Extinction_Curve/ext_yenhsing_stellar.dat')
-Ext_SD = np.loadtxt('./Observation_Datas/Extinction_Curve/ext_yenhsing_accretion.dat')
+Ext_SD = np.loadtxt('./Observation_Datas/Extinction_Curve/ext_yenhsing_stellar.dat')
+Ext_DG = np.loadtxt('./Observation_Datas/Extinction_Curve/ext_yenhsing_accretion.dat')
 for rows in range(np.shape(Ext_DG)[0]):
     if Ext_DG[rows,0]<0.3:
         ROW = rows
