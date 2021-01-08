@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from os import listdir
 from os.path import join
+import functions as f
 
 #Set plot style
 plt.rcParams.update({'font.size': 20})
@@ -13,60 +14,19 @@ color = ['r',(0.8,0.52,0),(0.8,0.8,0),(0,0.8,0),'b',(111/255, 0, 255/255),(238/2
 #Load Datas
 print("Please input the desired directory:")
 path = input()
-files = listdir(path)
-files.sort()
-files_abs = files
-files_abs.sort()
-Datas = []
-for i in range(len(files)):
-    files_abs[i] = join(path,files[i])
-    Datas.append(np.loadtxt(files_abs[i]))
-
-#Plotting function
-def Plot_AttCur(Datas,i):
-    Datas[Datas==0] = 1e-60
-    for rows in range(0,np.shape(Datas)[0]):
-        if Datas[rows,0]>0.3:
-            ROW = rows
-            break
-    tau = (np.log(Datas[:,2]/Datas[:,1]))/(np.log(Datas[ROW,2]/Datas[ROW,1]))
-    if i<0.5*len(files_abs):
-        ax.plot(1/Datas[:,0],tau,color=color[i],linestyle='dashed')
-    else:
-        ax.plot(1/Datas[:,0],tau,color=color[int(i-0.5*len(files_abs))],linestyle='solid')   
-
-#Plot with fill_in
-def Plot_AttCur_Fill(Datas,COLOR,LINE,LABEL):
-    tau = []
-    Wavelength = Datas[0][:,0]
-    for rows in range(0,np.shape(Wavelength)[0]):
-        if Wavelength[rows]>0.3:
-            ROW = rows
-            break
-    for D in Datas:
-        tau.append((np.log(D[:,2]/D[:,1]))/(np.log(D[ROW,2]/D[ROW,1])))
-    plt.fill_between(1/Wavelength,tau[0],tau[-1],alpha=0.3,color=COLOR,linestyle=LINE,label=LABEL)
+Datas = f.Import_Datas(path)
 
 #Main code to plot
-#for i in range(0,len(files_abs)):
-    #Plot_AttCur(Datas[i],i)
-    #if i<len(files_abs)/2:
-Plot_AttCur_Fill(Datas[:int(len(Datas)/2)],'b','dashed',LABEL="Dust growth scenario")
-Plot_AttCur_Fill(Datas[int(len(Datas)/2):],'r','solid' ,LABEL="Star dust scenario")
+for i in range(0,len(files_abs)):
+    Plot_AttCur(Datas[i],i)
+    if i<len(files_abs)/2:
+#f.Plot_AttCur_Fill(Datas[:int(len(Datas)/2)],'b','dashed',LABEL="Dust growth scenario")
+#f.Plot_AttCur_Fill(Datas[int(len(Datas)/2):],'r','solid' ,LABEL="Star dust scenario")
 
 #Plot legends
 #StarDust = ax.plot(np.linspace(0,10,10), np.ones(10)*-1, color = (0.1,0.1,0.1), linestyle='solid', label='Star dust scenario', linewidth=3)
 #DustGrowth = ax.plot(np.linspace(0,10,10), np.ones(10)*-1, color = (0.1,0.1,0.1), linestyle='dashed', label='Dust growth scenario', linewidth=3)
-
-#Show extinction curves of the two scenarios
-Ext_SD = np.loadtxt('./Observation_Datas/Extinction_Curve/ext_yenhsing_stellar.dat')
-Ext_DG = np.loadtxt('./Observation_Datas/Extinction_Curve/ext_yenhsing_accretion.dat')
-for rows in range(np.shape(Ext_DG)[0]):
-    if Ext_DG[rows,0]<0.3:
-        ROW = rows
-        break
-plt.plot(1/Ext_DG[:,0],Ext_DG[:,3]/Ext_DG[ROW,3],color='r',linestyle='dashed',label="Ext. curve of D.G. scenario")
-plt.plot(1/Ext_SD[:,0],Ext_SD[:,3]/Ext_SD[ROW,3],color='r',linestyle='solid',label="Ext. curve of S.D. scenario")
+f.Plot_Ext()
 
 #Show SMC and Calzetti curves
 SMC = np.loadtxt('./Observation_Datas/pei_smc.dat')

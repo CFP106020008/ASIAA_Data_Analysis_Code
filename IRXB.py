@@ -11,7 +11,7 @@ fig, ax = plt.subplots(figsize=(8,6))
 
 #Parameters
 c = 299792458
-Beta_range = [0.16,0.25]
+Beta_range = [0.15,0.3]
 
 #Load SEDs
 print("Please input the desired directory:")
@@ -77,6 +77,7 @@ for i in range(0,len(files_abs)):
     #Calculate IRX and Beta
     IRX = Cal_IRX(Datas)
     Beta = Cal_Beta(Datas, Beta_range)
+    print(Beta)
 
     #Plot data points
     LABEL = files[i].split('/')[-1]
@@ -139,5 +140,5 @@ plt.ylim([-2,3])
 plt.xlabel(r'$\beta$ (UV slope)')
 plt.ylabel(r'$IRX=log(L_{IR}/L_{UV})$')
 plt.tight_layout()
-plt.savefig('{}_IRXB'.format(path),dpi=300)
+plt.savefig('{}_IRXB_SameS'.format(path),dpi=300)
 plt.show()

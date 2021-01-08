@@ -4,6 +4,15 @@ import pandas as pd
 from os import listdir
 from os.path import join
 
+def Import_Datas(path):
+    files = listdir(path)
+    files.sort()
+    Datas = []
+    for i in range(len(files)):
+        Datas.append(np.loadtxt(join(path,files[i])))
+    return Datas
+
+
 #Plot indivisual attenuation curves
 def Plot_AttCur(Datas,i,color):
     Datas[Datas==0] = 1e-60
@@ -30,9 +39,9 @@ def Plot_AttCur_Fill(Datas,COLOR,LINE,LABEL):
     plt.fill_between(1/Wavelength,tau[0],tau[-1],alpha=0.3,color=COLOR,linestyle=LINE,label=LABEL)
 
 #Find the row corresponds to particular wavelength
-def Find_Lambda_ROW(Wavelength,Datas):
-    for rows in range(0,np.shape(Datas)[0]):
-        if Datas[rows,0]>Wavelength:
+def Find_Lambda_ROW(Wavelength,Data):
+    for rows in range(np.shape(Data)[0]):
+        if Data[rows,0] > Wavelength:
             ROW = rows
             break
     return ROW
@@ -111,4 +120,41 @@ def Plot_Ext():
     plt.plot(1/Ext_DG[:,0],Ext_DG[:,3]/Ext_DG[ROW,3],color='r',linestyle='dashed',label="Ext. curve of D.G. scenario")
     plt.plot(1/Ext_SD[:,0],Ext_SD[:,3]/Ext_SD[ROW,3],color='r',linestyle='solid',label="Ext. curve of S.D. scenario")
 
+def Plot_EXT(Datas, independent=False):
+    for i, Data in enumerate(Datas):
+        Data = np.flip(Data,axis = 0)
+        Data[Datas==0] = 1e-50
+        ROW = Find_Lambda_ROW(0.3,Data)
+        tau = Data[:,3]/Data[ROW,3]
+        if i<0.5*len(Datas):
+            ax.plot(1/Data[:,0],tau,color[i]+dash,label="Dust growth scenario")
+        else:
+            ax.plot(1/Data[:,0],tau,color[int(i-0.5*len(Datas))]+line,label="Star dust scenario")
+    if independent:
+        plt.legend()
+        #plt.title("Extinction Curve \n (Normalize to {} $\mu m$)".format(Datas[ROW,0]))
+        plt.xlabel(r'$1/\lambda$ $(\mu m^{-1})$')
+        plt.ylabel(r'$A_{\lambda}/A_{3000}$')
+        plt.xlim([0.3,10])
+        plt.ylim([0,10])
+        plt.tight_layout()
+        plt.savefig(str(path+"_extinction.png"),dpi=300)
+    #plt.show()
 
+def Plot_Albedo(Datas):
+    for i, Data in enumerate(Datas):
+        Data = np.flip(Data,axis=0)
+        Data[Datas==0] = 1e-50
+        Albedo = Data[:,1]/Data[:,3]
+        if i<0.5*len(Datas):
+            ax.plot(1/Data[:,0], Albedo, color[i]+dash, label="Dust growth scenario")
+        else:
+            ax.plot(1/Data[:,0], Albedo, color[int(i-0.5*len(Datas))]+line, label="Star dust scenario")
+    plt.legend()
+    #plt.title(r'Albedo($Q_{sca}/Q_{ext}$)')
+    plt.xlabel(r'$1/\lambda$ $(\mu m^{-1})$')
+    plt.ylabel(r'$A_{\lambda}/A_{3000}$')
+    plt.xlim([0.3,10])
+    #plt.ylim([0,10])
+    plt.tight_layout()
+    plt.savefig(str(path+"_albedo.png"),dpi=300)
